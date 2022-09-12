@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 
 from contato.models import Contatos
 
-from . forms import FormContato
-from django.contrib import messages
 
 def novo_contato(request):
     template_name = 'index.html'
