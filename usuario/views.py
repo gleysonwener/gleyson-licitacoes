@@ -40,7 +40,7 @@ def usuario_login(request):
                 if user.is_active:
                     login(request, user)
                     messages.success(request, 'Login feito com sucesso')
-                    return redirect('financas:principal')
+                    return redirect('contatos:lista_contatos')
                 else:
                     messages.warning(request, 'Sua conta está inativa, contate o suporte.')
                     return redirect('usuarios:usuario_login')

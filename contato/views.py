@@ -1,6 +1,9 @@
+from multiprocessing import context
+from re import template
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from contato.models import Contatos
+from django.core.paginator import Paginator
 
 
 def novo_contato(request):
@@ -28,4 +31,19 @@ def novo_contato(request):
         contatos.save()
 
         return render(request, template_name)
+
+@login_required
+def lista_contatos(request):
+    template_name = 'contato/principal.html'
+    contatos = Contatos.objects.all()
+
+    contato_paginator = Paginator(contatos, 10)
+
+    page_number = request.GET.get('page')
+    page = contato_paginator.get_page(page_number)
+
+    context = {
+        'page': page,
+    }
+    return render(request, template_name, context)
 
