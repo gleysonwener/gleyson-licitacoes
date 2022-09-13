@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
-
 {% block titulo %} Administração {% endblock titulo %}
 
-
 {% block corpo %}
-<div class="conteiner">
+<div class="container">
 
     {% include 'blocos/mensagens.html' %}
-
+    
+    <div class="container-fluid">
+        <div class="row">
+                <div class="col-md-6 dashboard-box" id="dashboard-lastdays">
+                    <h4>Cadastros nos últimos 30 dias</h4>
+                    <span><h4>{{ ultimos_cadastros }}</h4></span>
+                </div>
+                <div class="col-md-6 dashboard-box" id="dashboard-done">
+                    <h4>Total de cadastros</h4>
+                    <span><h4>{{ quantidade_cadastro_total.count }}</h4></span>
+                </div>
+        </div>
+    </div>
+    <br>
     <div class="col">
 
-        <h1>Listagem de E-mails</h1>
+        <h1 align="center">Listagem de E-mails</h1>
 
         <table class="table table-hover">
             <thead>
@@ -20,6 +31,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Telefone</th>
+                <th scope="col">Cadastrado em:</th>
 
             </tr>
             </thead>
@@ -31,6 +43,7 @@
                     <td>{{ contato.nome }}</td>
                     <td>{{ contato.email }}</td>
                     <td>{{ contato.telefone }}</td>
+                    <td>{{ contato.data_cadastro }}</td>
                 </tr>
             {% endfor %}
 
@@ -74,4 +87,6 @@
             </ul>
         </div>
     </div>   
+
+
 {% endblock corpo %}

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from contato.models import Contatos
 from django.core.paginator import Paginator
-
+import datetime
 
 def novo_contato(request):
     template_name = 'index.html'
@@ -35,7 +35,12 @@ def novo_contato(request):
 @login_required
 def lista_contatos(request):
     template_name = 'contato/principal.html'
-    contatos = Contatos.objects.all()
+    
+    ultimos_cadastros = Contatos.objects.filter(data_cadastro__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
+    
+    quantidade_cadastro_total = Contatos.objects.all()
+    
+    contatos = Contatos.objects.all().order_by('-id')
 
     contato_paginator = Paginator(contatos, 10)
 
@@ -44,6 +49,8 @@ def lista_contatos(request):
 
     context = {
         'page': page,
+        'ultimos_cadastros': ultimos_cadastros,
+        'quantidade_cadastro_total': quantidade_cadastro_total,
     }
     return render(request, template_name, context)
 
