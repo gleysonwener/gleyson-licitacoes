@@ -1,5 +1,5 @@
-from multiprocessing import context
-from re import template
+from time import sleep
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from contato.models import Contatos
@@ -20,16 +20,16 @@ def novo_contato(request):
         contato = Contatos.objects.filter(email=email)
 
         if contato.exists():
-            pass
-        
+            messages.warning(request, 'E-mail já cadastrado, informe um e-mail diferente.')
+            return render(request, template_name)
+
         contatos = Contatos(
             nome = nome,
             email = email,
             telefone = telefone
         )
 
-        contatos.save()
-
+        contatos.save()       
         return render(request, template_name)
 
 @login_required
