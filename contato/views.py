@@ -1,10 +1,14 @@
-from time import sleep
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from contato.models import Contatos
 from django.core.paginator import Paginator
 import datetime
+
+from django.views.generic import View
+
+from contato.utils import GeraPDFMixin
 
 def novo_contato(request):
     template_name = 'index.html'
@@ -54,3 +58,16 @@ def lista_contatos(request):
     }
     return render(request, template_name, context)
 
+# relatórios pdf
+
+class ListaContatosPdfView(View, GeraPDFMixin):
+
+    def get(self, request, *args, **kwargs):
+        contatos = Contatos.objects.all()
+
+        contexto = {
+            'contatos': contatos,
+            'quant_contatos': contatos.count(),
+        }
+        pdf = GeraPDFMixin()
+        return pdf.render_to_pdf('contato/contatospdf.html', contexto)
