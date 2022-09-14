@@ -1,0 +1,1 @@
+web: gunicorn consult_licitacoes.wsgi --log-file -
