@@ -5,10 +5,11 @@ from django.contrib.auth.decorators import login_required
 from contato.models import Contatos
 from django.core.paginator import Paginator
 import datetime
-
+from django.utils.decorators import method_decorator
 from django.views.generic import View
-
+from django.views.generic.list import ListView
 from contato.utils import GeraPDFMixin
+from django.db.models import Q
 
 def novo_contato(request):
     template_name = 'index.html'
@@ -59,7 +60,7 @@ def lista_contatos(request):
     return render(request, template_name, context)
 
 # relatórios pdf
-
+@method_decorator(login_required, name='dispatch')
 class ListaContatosPdfView(View, GeraPDFMixin):
 
     def get(self, request, *args, **kwargs):
@@ -71,3 +72,17 @@ class ListaContatosPdfView(View, GeraPDFMixin):
         }
         pdf = GeraPDFMixin()
         return pdf.render_to_pdf('contato/contatospdf.html', contexto)
+
+
+@login_required
+def buscar(request):
+    template_name = 'contato/busca_resultados.html'
+    context = {}
+    termo = request.GET.get('termo', None)
+
+    if termo is not None:
+        contatos = Contatos.objects.busca(termo=termo)
+        
+        context['contatos'] = contatos
+
+    return render(request, template_name, context)

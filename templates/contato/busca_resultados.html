@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Resultado da busca {% endblock titulo %}
+
+{% block corpo %}
+<div class="container">
+
+    {% include 'blocos/mensagens.html' %}
+    
+    <div class="col">
+
+        <h1 align="center">Resultado da Busca</h1>
+
+        <table border="2" class="table table-bordered table-dark">
+            <thead>
+            <tr>
+               <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Cadastrado em:</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for contato in contatos %}
+                <tr>
+                    <th scope="row">{{ contato.id }}</th>
+                    <td>{{ contato.nome }}</td>
+                    <td>{{ contato.email }}</td>
+                    <td>{{ contato.telefone }}</td>
+                    <td>{{ contato.data_cadastro }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            
+        </table>
+
+        
+    </div>   
+
+
+{% endblock corpo %}
