@@ -31,6 +31,12 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = ['gleysonlicitacoes.herokuapp.com', 'localhost', '127.0.0.1']
 
 
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -86,10 +92,12 @@ WSGI_APPLICATION = 'consult_licitacoes.wsgi.application'
 #     }
 # }
 
-default_dburl = 'postgresql:///' + os.path.join(BASE_DIR, 'postgresql')
 
-DATABASES = {'default': config('DATABASE_URL', default=default_dburl,
-cast=dburl), }
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASES = {
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
