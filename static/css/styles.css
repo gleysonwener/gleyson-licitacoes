@@ -468,6 +468,7 @@ body {
     /* slider */
     #mainSlider .carousel-inner, #mainSlider .carousel-item {
       height: auto;
+      
     }
   
     #mainSlider .carousel-caption h2 {
