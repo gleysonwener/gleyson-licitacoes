@@ -119,12 +119,15 @@ body {
   
   .main-title::after {
     content: "";
-    border-top: 2px solid #333;
+    border-top: 2px solid #333 2%;
     width: 15%;
     position: absolute;
     top: 60px;
     left: 42.5%;
+
   }
+  
+
   
   .about-title {
     font-size: 19px;
@@ -154,6 +157,7 @@ body {
   .service-box {
     text-align: center;
     margin-bottom: 40px;
+    
   }
   
 
@@ -168,8 +172,13 @@ body {
   }
   
   .service-box img {
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
+  }
+
+  #img2-service-box{
+    width: 80px;
+    height: 65px;
   }
 
   .service-box h4 {
@@ -178,7 +187,7 @@ body {
     padding: 2%;
   }
   
-  .service-box:hover > i, .service-box:hover > h4, .service-box:hover > p {
+  .service-box:hover > i, .service-box:hover > h4, .service-box:hover > p, .service-box > {
     color: #cfcbe7;
   }
   
@@ -448,7 +457,7 @@ body {
     color: #135d72;
   }
   
-  /* responsive */
+  /* responsivo */
   @media(max-width: 768px) {
     
     /* geral */
@@ -525,6 +534,7 @@ body {
     #call-area p, #call-area #call-btn {
       font-size: 16px;
     }
+  
   
   }
 
@@ -668,7 +678,7 @@ body {
     /* contact */
     .contact-box {
       border: none;
-      margin-bottom: 0;
+      
     }
   
   }
